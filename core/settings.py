@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 THIRD_PARTY_APPS = []
-PROJECT_APPS = []
+PROJECT_APPS = [
+    "user",
+    "customer",
+    "product",
+    "suppliers",
+    "orders",
+]
 INSTALLED_APPS += THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
@@ -108,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
