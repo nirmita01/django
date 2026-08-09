@@ -1,0 +1,81 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="delete-container">
+
+    <h2>Delete User</h2>
+
+    <p>
+        Are you sure you want to delete this user?
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button type="submit" class="delete-btn">
+            Yes, Delete
+        </button>
+
+        <a href="{% url 'users_list' %}" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+<style>
+
+.delete-container{
+    width:450px;
+    margin:60px auto;
+    padding:30px;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.delete-container h2{
+    color:#dc3545;
+    margin-bottom:20px;
+}
+
+.delete-container p{
+    font-size:16px;
+    margin-bottom:25px;
+    color:#555;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.delete-btn:hover{
+    background:#bb2d3b;
+}
+
+.cancel-btn{
+    background:#6c757d;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:5px;
+    margin-left:10px;
+}
+
+.cancel-btn:hover{
+    background:#5c636a;
+}
+
+</style>
+
+{% endblock %}

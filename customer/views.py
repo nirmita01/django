@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Customer
 from django.views.generic import CreateView, UpdateView, DeleteView,ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import Customerform
+from .forms import CustomerForm
 
 class CustomerListView(LoginRequiredMixin,ListView):
     model=Customer
@@ -11,13 +11,13 @@ class CustomerListView(LoginRequiredMixin,ListView):
 
 class CustomerCreateView(LoginRequiredMixin,CreateView):
     model=Customer
-    form_class=Customerform
+    form_class=CustomerForm
     success_url='/customers/'
     
     
 class CustomerUpdateView(LoginRequiredMixin,UpdateView):
      model=Customer
-     form_class=Customerform
+     form_class=CustomerForm
      success_url='/customers/'
      
 class CustomerDeleteView(LoginRequiredMixin,DeleteView):

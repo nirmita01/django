@@ -1,0 +1,61 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="delete-container">
+
+    <h2>Delete Category</h2>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ object.name }}</strong>?
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button type="submit" class="delete-btn">
+            Delete
+        </button>
+
+        <a href="{% url 'category-list' %}" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+<style>
+
+.delete-container{
+    width:450px;
+    margin:60px auto;
+    text-align:center;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+}
+
+.cancel-btn{
+    background:gray;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+    margin-left:10px;
+}
+
+</style>
+
+{% endblock %}

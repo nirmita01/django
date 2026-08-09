@@ -1,0 +1,57 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+<h2>Add Order</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="save-btn">
+        Save
+    </button>
+
+    <a href="{% url 'order_list' %}" class="cancel-btn">
+        Cancel
+    </a>
+
+</form>
+
+</div>
+
+<style>
+
+.form-container{
+    width:500px;
+    margin:40px auto;
+}
+
+input,
+select{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+}
+
+.save-btn{
+    background:green;
+    color:white;
+    padding:10px 20px;
+    border:none;
+}
+
+.cancel-btn{
+    background:gray;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+}
+
+</style>
+
+{% endblock %}

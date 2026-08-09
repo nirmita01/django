@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Role
+from user.models import User, Role
 
 class UserRegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}), label="Confirm Password")
@@ -7,7 +7,7 @@ class UserRegisterForm(forms.ModelForm):
     class Meta:
         model = User 
         fields = ['name', 'email', 'password', 'phone', 'address', 'confirm_password', 'role']
-        widgets = {'passowrd': forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
+        widgets = {'password': forms.PasswordInput(attrs={'placeholder': 'Enter Password'}),
                    }
 
     def clean(self):
@@ -24,7 +24,6 @@ class UserRegisterForm(forms.ModelForm):
 class UserLoginForm(forms.Form):
     email=forms.EmailField(widget=forms.EmailInput(attrs={"placeholder":"Enter Email"}),label="Email",)
     password=forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Enter Password"}),label="Password")
-    confirm_password=forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Confirm Password"}),label="Confirm Password")  
     
     def clean(self):
         cleaned_data=super().clean()

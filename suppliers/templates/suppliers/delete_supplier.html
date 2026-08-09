@@ -1,0 +1,59 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="delete-container">
+
+<h2>Delete Supplier</h2>
+
+<p>
+
+Are you sure you want to delete
+<strong>{{ object.name }}</strong>?
+
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="delete-btn">
+        Delete
+    </button>
+
+    <a href="{% url 'supplier_list' %}" class="cancel-btn">
+        Cancel
+    </a>
+
+</form>
+
+</div>
+
+<style>
+
+.delete-container{
+    width:450px;
+    margin:60px auto;
+    text-align:center;
+    border:1px solid #ddd;
+    padding:30px;
+    border-radius:8px;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+    padding:10px 20px;
+    border:none;
+}
+
+.cancel-btn{
+    background:gray;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+}
+
+</style>
+
+{% endblock %}

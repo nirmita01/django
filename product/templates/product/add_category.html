@@ -1,0 +1,66 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Add Category</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="save-btn">
+            Save
+        </button>
+
+        <a href="{% url 'category-list' %}" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+<style>
+
+.form-container{
+    width:500px;
+    margin:40px auto;
+    padding:30px;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-container input,
+.form-container textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.save-btn{
+    background:green;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+}
+
+.cancel-btn{
+    background:gray;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+    margin-left:10px;
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<div class="order-container">
+
+    <div class="header">
+        <h2>Order List</h2>
+
+        <a href="{% url 'order_add' %}" class="add-btn">
+            Add Order
+        </a>
+    </div>
+
+    <table class="order-table">
+
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Products</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ order.order_id }}</td>
+            <td>{{ order.customer }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>{{ order.status }}</td>
+
+            <td>
+                {% for product in order.order_details.all %}
+                    {{ product.name }}<br>
+                {% endfor %}
+            </td>
+
+            <td>
+                <a href="{% url 'order_update' order.order_id %}" class="edit-btn">Edit</a>
+
+                <a href="{% url 'order_delete' order.order_id %}" class="delete-btn">Delete</a>
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="6">No Orders Found.</td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<style>
+
+.order-container{
+    width:95%;
+    margin:30px auto;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.add-btn{
+    background:#0d6efd;
+    color:white;
+    padding:10px 18px;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.order-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.order-table th{
+    background:#343a40;
+    color:white;
+    padding:12px;
+}
+
+.order-table td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+.order-table tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.edit-btn{
+    background:#ffc107;
+    color:black;
+    padding:6px 12px;
+    text-decoration:none;
+    border-radius:4px;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+    padding:6px 12px;
+    text-decoration:none;
+    border-radius:4px;
+}
+
+</style>
+
+{% endblock %}
