@@ -1,18 +1,14 @@
 from django import forms
+
+from product.models import Product
+
 from .models import Order
 
 
 class OrderForm(forms.ModelForm):
-    customer = forms.ModelChoiceField(queryset=None,label='Customer')
-
-    order_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),label='Order Date')
-
-    status = forms.ChoiceField(choices=Order.OrderStatus.choices,label='Status')
-
-    order_details = forms.ModelMultipleChoiceField(queryset=None,widget=forms.CheckboxSelectMultiple,label='Order Details')
+    order_date = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}), label="Order Date")
+    order_details = forms.ModelMultipleChoiceField(queryset=Product.objects.all(), widget=forms.CheckboxSelectMultiple(), label="Products")
 
     class Meta:
         model = Order
-        fields = '__all__'
-
-    
+        fields = "__all__"

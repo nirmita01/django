@@ -1,54 +1,169 @@
+```html
 {% extends "home/base.html" %}
 
 {% block content %}
 
-<div class="form-container">
+<style>
+    .product-form-page {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: #f4f7fc;
+    }
 
-<h2>Update Product</h2>
+    .product-form-card {
+        width: 100%;
+        max-width: 650px;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 14px;
+        border-top: 5px solid #ffc107;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
 
-<form method="POST">
+    .product-form-card h2 {
+        text-align: center;
+        color: #0d6efd;
+        margin-bottom: 8px;
+        font-size: 28px;
+        font-weight: 600;
+    }
 
-{% csrf_token %}
+    .product-form-subtitle {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
 
-{{ form.as_p }}
+    .product-form-card form p {
+        margin-bottom: 18px;
+    }
 
-<button type="submit" class="update-btn">Update</button>
+    .product-form-card label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: #444;
+    }
 
-<a href="{% url 'product_list' %}" class="cancel-btn">Cancel</a>
+    .product-form-card input,
+    .product-form-card textarea,
+    .product-form-card select {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid #ced4da;
+        border-radius: 7px;
+        background: #f8fbff;
+        font-size: 14px;
+        transition: .3s;
+        box-sizing: border-box;
+    }
 
-</form>
+    .product-form-card input:focus,
+    .product-form-card textarea:focus,
+    .product-form-card select:focus {
+        outline: none;
+        border-color: #0d6efd;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(13,110,253,.15);
+    }
+
+    .product-form-card .errorlist {
+        color: #dc3545;
+        font-size: 13px;
+        padding-left: 18px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .update-btn,
+    .cancel-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: .3s;
+        cursor: pointer;
+    }
+
+    .update-btn {
+        background: #ffc107;
+        color: #212529;
+        border: none;
+    }
+
+    .update-btn:hover {
+        background: #e0a800;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .cancel-btn {
+        background: #6c757d;
+        color: white;
+    }
+
+    .cancel-btn:hover {
+        background: #5a6268;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width:600px) {
+
+        .product-form-card {
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="product-form-page">
+
+    <div class="product-form-card">
+
+        <h2>✏️ Update Product</h2>
+
+        <p class="product-form-subtitle">
+            Modify the product details below
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="form-actions">
+
+                <button type="submit" class="update-btn">
+                    ✏️ Update Product
+                </button>
+
+                <a href="{% url 'products_list' %}" class="cancel-btn">
+                    ↩️ Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-<style>
-
-.form-container{
-    width:500px;
-    margin:40px auto;
-}
-
-input,
-textarea,
-select{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-}
-
-.update-btn{
-    background:#0d6efd;
-    color:white;
-    padding:10px 20px;
-    border:none;
-}
-
-.cancel-btn{
-    background:gray;
-    color:white;
-    padding:10px 20px;
-    text-decoration:none;
-}
-
-</style>
-
 {% endblock %}
+```

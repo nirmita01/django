@@ -1,80 +1,321 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
-<h2 class="text-center my-4">Welcome to the Inventory Management System</h2>
+
+<style>
+    .dashboard-page {
+        padding: 35px 20px;
+        background: #f4f7fc;
+        min-height: 80vh;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .dashboard-header h2 {
+        color: #333;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .dashboard-header p {
+        color: #777;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .status-column {
+        width: calc(33.333% - 20px);
+    }
+
+    .status-card {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 25px 20px;
+        text-align: center;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .status-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .status-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .status-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 27px;
+    }
+
+    .status-card h5 {
+        margin: 0 0 10px;
+        color: #444;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .status-count {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+    }
 
 
-<h3 class="text-center mb-4">Order Status Summary</h3>
+    /* Pending */
+    .pending-card::before {
+        background: #17a2b8;
+    }
 
-<div class="row">
+    .pending-card .status-icon {
+        background: #e3f8fb;
+        color: #17a2b8;
+    }
 
-    <div class="col-12 col-md-4 mb-3">
-        <div class="card shadow-sm border-info">
-            <div class="card-body text-center">
-                <i class="fa fa-dot-circle-o text-info fa-3x mb-3"></i>
-                <h5 class="card-title">Pending</h5>
-                <p class="card-text">
-                    <span class="h4">{{ status_count.pending }}</span>
-                </p>
-            </div>
-        </div>
+    .pending-card .status-count {
+        color: #17a2b8;
+    }
+
+
+    /* Processing */
+    .processing-card::before {
+        background: #ffc107;
+    }
+
+    .processing-card .status-icon {
+        background: #fff7d6;
+        color: #e0a800;
+    }
+
+    .processing-card .status-count {
+        color: #e0a800;
+    }
+
+
+    /* Shipped */
+    .shipped-card::before {
+        background: #6f42c1;
+    }
+
+    .shipped-card .status-icon {
+        background: #f0e8ff;
+        color: #6f42c1;
+    }
+
+    .shipped-card .status-count {
+        color: #6f42c1;
+    }
+
+
+    /* Delivered */
+    .delivered-card::before {
+        background: #28a745;
+    }
+
+    .delivered-card .status-icon {
+        background: #e5f7e9;
+        color: #28a745;
+    }
+
+    .delivered-card .status-count {
+        color: #28a745;
+    }
+
+
+    /* Cancelled */
+    .cancelled-card::before {
+        background: #dc3545;
+    }
+
+    .cancelled-card .status-icon {
+        background: #fde7e9;
+        color: #dc3545;
+    }
+
+    .cancelled-card .status-count {
+        color: #dc3545;
+    }
+
+
+    @media (max-width: 900px) {
+        .status-column {
+            width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .dashboard-page {
+            padding: 25px 15px;
+        }
+
+        .dashboard-header h2 {
+            font-size: 24px;
+        }
+
+        .status-column {
+            width: 100%;
+        }
+
+        .status-card {
+            padding: 22px 18px;
+        }
+    }
+</style>
+
+
+<div class="dashboard-page">
+
+    <div class="dashboard-header">
+
+        <h2>Order Dashboard</h2>
+
+        <p>
+            Overview of your current order status
+        </p>
+
     </div>
 
-    
-    <div class="col-12 col-md-4 mb-3">
-        <div class="card shadow-sm border-warning">
-            <div class="card-body text-center">
-                <i class="fa fa-dot-circle-o text-warning fa-3x mb-3"></i>
-                <h5 class="card-title">Processing</h5>
-                <p class="card-text">
-                    <span class="h4">{{ status_count.processing }}</span>
+
+    <div class="status-row">
+
+
+        <!-- Pending -->
+
+        <div class="status-column">
+
+            <div class="status-card pending-card">
+
+                <div class="status-icon">
+                    ⏳
+                </div>
+
+                <h5>Pending</h5>
+
+                <p class="status-count">
+                    {{ status_count.pending }}
                 </p>
+
             </div>
+
         </div>
+
+
+        <!-- Processing -->
+
+        <div class="status-column">
+
+            <div class="status-card processing-card">
+
+                <div class="status-icon">
+                    ⚙️
+                </div>
+
+                <h5>Processing</h5>
+
+                <p class="status-count">
+                    {{ status_count.processing }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Shipped -->
+
+        <div class="status-column">
+
+            <div class="status-card shipped-card">
+
+                <div class="status-icon">
+                    🚚
+                </div>
+
+                <h5>Shipped</h5>
+
+                <p class="status-count">
+                    {{ status_count.shipped }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Delivered -->
+
+        <div class="status-column">
+
+            <div class="status-card delivered-card">
+
+                <div class="status-icon">
+                    ✅
+                </div>
+
+                <h5>Delivered</h5>
+
+                <p class="status-count">
+                    {{ status_count.delivered }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Cancelled -->
+
+        <div class="status-column">
+
+            <div class="status-card cancelled-card">
+
+                <div class="status-icon">
+                    ❌
+                </div>
+
+                <h5>Cancelled</h5>
+
+                <p class="status-count">
+                    {{ status_count.cancelled }}
+                </p>
+
+            </div>
+
+        </div>
+
+
     </div>
 
-    
-    <div class="col-12 col-md-4 mb-3">
-        <div class="card shadow-sm border-purple">
-            <div class="card-body text-center">
-                <i class="fa fa-dot-circle-o text-purple fa-3x mb-3"></i>
-                <h5 class="card-title">Shipped</h5>
-                <p class="card-text">
-                    <span class="h4">{{ status_count.shipped }}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="col-12 col-md-4 mb-3">
-        <div class="card shadow-sm border-success">
-            <div class="card-body text-center">
-                <i class="fa fa-dot-circle-o text-success fa-3x mb-3"></i>
-                <h5 class="card-title">Delivered</h5>
-                <p class="card-text">
-                    <span class="h4">{{ status_count.delivered }}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="col-12 col-md-4 mb-3">
-        <div class="card shadow-sm border-danger">
-            <div class="card-body text-center">
-                <i class="fa fa-dot-circle-o text-danger fa-3x mb-3"></i>
-                <h5 class="card-title">Cancelled</h5>
-                <p class="card-text">
-                    <span class="h4">{{ status_count.cancelled }}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="text-center mt-4">
-    <a href="{% url 'order_list' %}" class="btn btn-primary btn-lg">View Orders</a>
 </div>
 
 {% endblock %}

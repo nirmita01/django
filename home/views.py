@@ -1,60 +1,68 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegisterForm, UserLoginForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
 from orders.models import Order
-from django.db.models import Count
 from product.models import Product
+
+from .forms import LoginForm, UserSignUpForm
+
 
 def login_view(request):
     if request.method == "POST":
-        form = UserLoginForm(request.POST)
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
 
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
+        if user is not None:
+            login(request, user)
+            return redirect("dashboard")
 
-            user = authenticate(request, username=username, password=password)
+        messages.error(request, "Invalid username or password.")
 
-            if user is not None:
-                login(request, user)
-                return redirect("home")
-            else:
-                messages.error(request, "Invalid username or password.")
-
-    else:
-        form = UserLoginForm()
-
+    form = LoginForm()
     return render(request, "home/login.html", {"form": form})
 
 
-def Signup_view(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+def signup_view(request):
+    if request.method == "POST":
+        form = UserSignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit = False)
-            user.password = make_password(form.cleaned_data['password'])
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data["password"])
             user.save()
-            messages.success(request, 'Account created succesfully. Please log in.')
-            return redirect('login')
+            messages.success(request, "Account created successfully. Please log in.")
+            return redirect("login")
     else:
-        form = UserRegisterForm()
-    return render(request, 'home/signup.html', {'form': form})
+        form = UserSignUpForm()
+    return render(request, "home/signup.html", {"form": form})
 
 
+@login_required(login_url="login")
 def dashboard_view(request):
-    total_users = User.objects.count()
     total_orders = Order.objects.count()
+    total_users = User.objects.count()
     total_products = Product.objects.count()
-    context = {
-        'total_users': total_users,
-        'total_orders': total_orders,
-        'total_products': total_products,
+
+    status_count = {
+        "pending": Order.objects.filter(status=Order.OrderStatus.PENDING).count(),
+        "processing": Order.objects.filter(status=Order.OrderStatus.PROCESSING).count(),
+        "shipped": Order.objects.filter(status=Order.OrderStatus.SHIPPED).count(),
+        "delivered": Order.objects.filter(status=Order.OrderStatus.DELIVERED).count(),
+        "cancelled": Order.objects.filter(status=Order.OrderStatus.CANCELLED).count(),
     }
-    return render(request, 'home/dashboard.html', context)
+
+    context = {
+        "total_orders": total_orders,
+        "total_users": total_users,
+        "total_products": total_products,
+        "status_count": status_count,
+    }
+    return render(request, "home/dashboard.html", context)
+
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect("login")

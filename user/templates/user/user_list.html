@@ -1,0 +1,168 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<style>
+    .user-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .user-header h2 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .add-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .add-btn:hover {
+        background: linear-gradient(135deg, #218838, #1ea97c);
+        color: white;
+    }
+
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .user-table thead {
+        background: #0d6efd;
+        color: white;
+    }
+
+    .user-table th,
+    .user-table td {
+        padding: 14px;
+        text-align: center;
+    }
+
+    .user-table tbody tr:nth-child(even) {
+        background: #f8f9fa;
+    }
+
+    .user-table tbody tr:hover {
+        background: #e9f5ff;
+        transition: 0.3s;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        text-decoration: none;
+        color: #842029;
+        padding: 7px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0 3px;
+        display: inline-block;
+    }
+
+    .edit-btn {
+        background: #fff3cd;
+        color: #212529;
+    }
+
+    .edit-btn:hover {
+        background: #e0a800;
+    }
+
+    .delete-btn {
+        background: #f8d7da;
+    }
+
+    .delete-btn:hover {
+        background: #f1aeb5;
+        color: white;
+    }
+
+    .no-data {
+        text-align: center;
+        color: #888;
+        padding: 20px;
+        font-style: italic;
+    }
+</style>
+
+<div class="user-container">
+
+    <div class="user-header">
+        <h2>👤 User List</h2>
+
+        <a href="{% url 'user_create' %}" class="add-btn">
+            ➕ Add User
+        </a>
+    </div>
+
+    <table class="user-table">
+
+        <thead>
+            <tr>
+                <th>👤 Username</th>
+                <th>📧 Email</th>
+                <th>🛡 Role</th>
+                <th>📱 Phone</th>
+                <th>📍 Address</th>
+                <th>⚙ Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.address }}</td>
+                <td>
+                    <a href="{% url 'user_update' user.id %}" class="edit-btn">
+                        ✏ Edit
+                    </a>
+
+                    <a href="{% url 'user_delete' user.id %}" class="delete-btn">
+                        🗑 Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="6" class="no-data">
+                    No users found.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

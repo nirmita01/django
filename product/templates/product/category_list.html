@@ -7,7 +7,7 @@
     <div class="header">
         <h2>Category List</h2>
 
-        <a href="{% url 'category-create' %}" class="add-btn">
+        <a href="{% url 'category_create' %}" class="add-btn">
             Add Category
         </a>
     </div>
@@ -33,11 +33,11 @@
                 <td>{{ category.description }}</td>
 
                 <td>
-                    <a href="{% url 'category-update' category.id %}" class="edit-btn">
+                    <a href="{% url 'category_update' category.id %}" class="edit-btn">
                         Edit
                     </a>
 
-                    <a href="{% url 'category-delete' category.id %}" class="delete-btn">
+                    <a href="{% url 'category_delete' category.id %}" class="delete-btn">
                         Delete
                     </a>
                 </td>

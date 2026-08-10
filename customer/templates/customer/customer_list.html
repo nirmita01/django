@@ -1,14 +1,146 @@
+```html
 {% extends "home/base.html" %}
 
 {% block content %}
 
+<style>
+    .customer-container {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        margin: 30px auto;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .header h2 {
+        color: #0d6efd;
+        font-size: 30px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .add-btn {
+        background: linear-gradient(135deg, #3535f4, #4dabff);
+        color: white;
+        padding: 12px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .add-btn:hover {
+        background: linear-gradient(135deg, #3535f4, #339af0);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .customer-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .customer-table thead {
+        background: linear-gradient(135deg, #3535f4, #2e99f6);
+        color: white;
+    }
+
+    .customer-table th,
+    .customer-table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .customer-table tbody tr:nth-child(even) {
+        background: #f8f9fa;
+    }
+
+    .customer-table tbody tr:hover {
+        background: #eef6ff;
+        transition: .3s;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .3s;
+        margin: 2px;
+    }
+
+    .edit-btn {
+        background: #fff3cd;
+        color: #212529;
+    }
+
+    .edit-btn:hover {
+        background: #e0a800;
+        color: white;
+    }
+
+    .delete-btn {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .delete-btn:hover {
+        background: #f1aeb5;
+        color: white;
+    }
+
+    .empty-row td {
+        color: #6c757d;
+        font-size: 16px;
+        padding: 30px;
+    }
+
+    @media (max-width:768px) {
+
+        .header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .header h2 {
+            text-align: center;
+        }
+
+        .add-btn {
+            text-align: center;
+        }
+
+        .customer-table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+</style>
+
 <div class="customer-container">
 
     <div class="header">
-        <h2>Customer List</h2>
+        <h2>👥 Customer List</h2>
 
-        <a href="{% url 'customer_add' %}" class="add-btn">
-            Add Customer
+        <a href="{% url 'customers_create' %}" class="add-btn">
+            ➕ Add Customer
         </a>
     </div>
 
@@ -17,11 +149,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Actions</th>
+                <th>👤 Name</th>
+                <th>📧 Email</th>
+                <th>📞 Phone</th>
+                <th>📍 Address</th>
+                <th>⚙️ Actions</th>
             </tr>
         </thead>
 
@@ -37,15 +169,22 @@
                 <td>{{ customer.address }}</td>
 
                 <td>
-                    <a href="{% url 'customer_update' customer.id %}" class="edit-btn">Edit</a>
-                    <a href="{% url 'customer_delete' customer.id %}" class="delete-btn">Delete</a>
+                    <a href="{% url 'customers_update' customer.id %}" class="edit-btn">
+                        ✏️ Edit
+                    </a>
+
+                    <a href="{% url 'customers_delete' customer.id %}" class="delete-btn">
+                        🗑 Delete
+                    </a>
                 </td>
             </tr>
 
             {% empty %}
 
-            <tr>
-                <td colspan="6">No customers found.</td>
+            <tr class="empty-row">
+                <td colspan="6">
+                    📭 No customers found.
+                </td>
             </tr>
 
             {% endfor %}
@@ -56,64 +195,5 @@
 
 </div>
 
-<style>
-
-.customer-container{
-    width:95%;
-    margin:30px auto;
-}
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.add-btn{
-    background:#0d6efd;
-    color:white;
-    padding:10px 15px;
-    text-decoration:none;
-    border-radius:5px;
-}
-
-.customer-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.customer-table th{
-    background:#343a40;
-    color:white;
-    padding:12px;
-}
-
-.customer-table td{
-    border:1px solid #ddd;
-    padding:10px;
-}
-
-.customer-table tr:nth-child(even){
-    background:#f8f9fa;
-}
-
-.edit-btn{
-    background:#ffc107;
-    color:black;
-    padding:5px 10px;
-    text-decoration:none;
-    border-radius:4px;
-}
-
-.delete-btn{
-    background:#dc3545;
-    color:white;
-    padding:5px 10px;
-    text-decoration:none;
-    border-radius:4px;
-}
-
-</style>
-
 {% endblock %}
+```

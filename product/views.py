@@ -3,6 +3,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Category, Product
 from .forms import CategoryForm, ProductForm
+from django.urls import reverse_lazy
+
 
 # -------------------- Category --------------------
 
@@ -15,18 +17,22 @@ class CategoryListView(LoginRequiredMixin, ListView):
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
-    success_url = '/product/categories/'
+    template_name = 'product/create_category.html'
+    success_url = reverse_lazy('category_list')
 
 
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
     form_class = CategoryForm
-    success_url = '/product/categories/'
+    template_name = 'product/update_category.html'
+    success_url = reverse_lazy('category_list')
 
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
-    success_url = '/product/categories/'
+    template_name = 'product/delete_category.html'
+    success_url = reverse_lazy('category_list')
+
 
 # -------------------- Product --------------------
 
@@ -39,15 +45,18 @@ class ProductListView(LoginRequiredMixin, ListView):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
-    success_url = '/product/products/'
+    template_name = 'product/add_product.html'
+    success_url = reverse_lazy('products_list')
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
-    success_url = '/product/products/'
+    template_name = 'product/update_product.html'
+    success_url = reverse_lazy('products_list')
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
-    success_url = '/product/products/'
+    template_name = 'product/delete_product.html'
+    success_url = reverse_lazy('products_list')

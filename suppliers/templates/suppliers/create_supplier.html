@@ -8,26 +8,26 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #eef7ff, #f9fcff);
+        background: linear-gradient(135deg, #eef7ff, #f8fbff);
         padding: 40px 20px;
     }
 
     .supplier-form-card {
         width: 100%;
         max-width: 650px;
-        background: #fff;
+        background: #ffffff;
         padding: 35px;
         border-radius: 18px;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-        border-top: 6px solid #0d6efd;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        border-top: 6px solid #198754;
     }
 
     .supplier-form-card h2 {
         text-align: center;
-        color: #0d6efd;
-        margin-bottom: 8px;
+        color: #198754;
         font-size: 30px;
         font-weight: bold;
+        margin-bottom: 8px;
     }
 
     .supplier-form-card p.subtitle {
@@ -48,14 +48,14 @@
     }
 
     .supplier-form-card input,
-    .supplier-form-card select,
-    .supplier-form-card textarea {
+    .supplier-form-card textarea,
+    .supplier-form-card select {
         width: 100%;
         padding: 12px;
         border: 1px solid #ced4da;
         border-radius: 8px;
         font-size: 15px;
-        transition: .3s;
+        transition: 0.3s;
         box-sizing: border-box;
     }
 
@@ -65,11 +65,11 @@
     }
 
     .supplier-form-card input:focus,
-    .supplier-form-card select:focus,
-    .supplier-form-card textarea:focus {
+    .supplier-form-card textarea:focus,
+    .supplier-form-card select:focus {
         outline: none;
-        border-color: #0d6efd;
-        box-shadow: 0 0 8px rgba(13,110,253,.25);
+        border-color: #198754;
+        box-shadow: 0 0 8px rgba(25, 135, 84, 0.25);
     }
 
     .button-group {
@@ -78,7 +78,7 @@
         margin-top: 25px;
     }
 
-    .update-btn,
+    .save-btn,
     .cancel-btn {
         flex: 1;
         padding: 12px;
@@ -86,18 +86,18 @@
         text-align: center;
         text-decoration: none;
         font-weight: bold;
-        transition: .3s;
+        transition: 0.3s;
     }
 
-    .update-btn {
-        background: linear-gradient(135deg, #0d6efd, #3d8bfd);
+    .save-btn {
+        background: linear-gradient(135deg, #198754, #20c997);
         color: white;
         border: none;
         cursor: pointer;
     }
 
-    .update-btn:hover {
-        background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+    .save-btn:hover {
+        background: linear-gradient(135deg, #157347, #198754);
         transform: translateY(-2px);
     }
 
@@ -127,8 +127,8 @@
 
     <div class="supplier-form-card">
 
-        <h2>✏️ Update Supplier</h2>
-        <p class="subtitle">Edit the supplier information below.</p>
+        <h2>➕ Add Supplier</h2>
+        <p class="subtitle">Fill in the supplier details below.</p>
 
         <form method="post">
 
@@ -138,8 +138,8 @@
 
             <div class="button-group">
 
-                <button type="submit" class="update-btn">
-                    💾 Update
+                <button type="submit" class="save-btn">
+                    💾 Create Supplier
                 </button>
 
                 <a href="{% url 'supplier_list' %}" class="cancel-btn">

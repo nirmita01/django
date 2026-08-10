@@ -1,65 +1,168 @@
+```html id="i95tk0"
 {% extends "home/base.html" %}
 
 {% block content %}
 
-<div class="form-container">
+<style>
+    .customer-form-page {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: #f4f7fc;
+    }
 
-    <h2>Add Customer</h2>
+    .customer-form-card {
+        width: 100%;
+        max-width: 650px;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 14px;
+        border-top: 5px solid #0d6efd;
+        box-shadow: 0 8px 25px rgba(13, 110, 253, 0.12);
+    }
 
-    <form method="POST">
+    .customer-form-card h2 {
+        text-align: center;
+        color: #0d6efd;
+        margin-bottom: 8px;
+        font-size: 28px;
+        font-weight: 600;
+    }
 
-        {% csrf_token %}
+    .customer-form-subtitle {
+        text-align: center;
+        color: #6c757d;
+        margin-bottom: 28px;
+        font-size: 14px;
+    }
 
-        {{ form.as_p }}
+    .customer-form-card form p {
+        margin-bottom: 18px;
+    }
 
-        <button type="submit" class="save-btn">
-            Save
-        </button>
+    .customer-form-card label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: #444;
+    }
 
-        <a href="{% url 'customer_list' %}" class="cancel-btn">
-            Cancel
-        </a>
+    .customer-form-card input,
+    .customer-form-card textarea,
+    .customer-form-card select {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        background: #f8fbff;
+        font-size: 14px;
+        transition: .3s;
+        box-sizing: border-box;
+    }
 
-    </form>
+    .customer-form-card input:focus,
+    .customer-form-card textarea:focus,
+    .customer-form-card select:focus {
+        outline: none;
+        border-color: #0d6efd;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(13,110,253,.15);
+    }
+
+    .customer-form-card .errorlist {
+        color: #dc3545;
+        font-size: 13px;
+        padding-left: 18px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        transition: .3s;
+        cursor: pointer;
+    }
+
+    .save-btn {
+        background: linear-gradient(135deg, #0d6efd, #4dabff);
+        color: white;
+        border: none;
+    }
+
+    .save-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #339af0);
+        transform: translateY(-2px);
+    }
+
+    .cancel-btn {
+        background: #ffc107;
+        color: #212529;
+        border: 1px solid #e0a800;
+    }
+
+    .cancel-btn:hover {
+        background: #e0a800;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width:600px) {
+        .customer-form-card {
+            padding: 25px 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="customer-form-page">
+
+    <div class="customer-form-card">
+
+        <h2>👤 Add Customer</h2>
+
+        <p class="customer-form-subtitle">
+            Enter the customer information below
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="form-actions">
+
+                <button type="submit" class="save-btn">
+                    💾 Save Customer
+                </button>
+
+                <a href="{% url 'customers_list' %}" class="cancel-btn">
+                    ↩️ Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-<style>
-
-.form-container{
-    width:500px;
-    margin:40px auto;
-}
-
-h2{
-    margin-bottom:20px;
-}
-
-input,textarea{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-.save-btn{
-    background:green;
-    color:white;
-    padding:10px 20px;
-    border:none;
-    border-radius:5px;
-}
-
-.cancel-btn{
-    background:gray;
-    color:white;
-    padding:10px 20px;
-    text-decoration:none;
-    border-radius:5px;
-    margin-left:10px;
-}
-
-</style>
-
 {% endblock %}
+```
