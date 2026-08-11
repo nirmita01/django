@@ -1,4 +1,3 @@
-```html
 {% extends "home/base.html" %}
 
 {% block content %}
@@ -132,6 +131,50 @@
             white-space: nowrap;
         }
     }
+    .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    list-style: none;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    color: #394cf6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.page-link:hover {
+    background: #394cf6;
+    color: white;
+}
+
+.page-item.active .page-link {
+    background: #394cf6;
+    color: white;
+    border-color: #394cf6;
+}
 </style>
 
 <div class="customer-container">
@@ -192,8 +235,61 @@
         </tbody>
 
     </table>
+    {% if is_paginated %}
+
+<nav class="pagination-container">
+
+    <ul class="pagination">
+
+        {% if page_obj.has_previous %}
+
+        <li class="page-item">
+            <a class="page-link" href="?page=1">⏮️</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">◀️</a>
+        </li>
+
+        {% endif %}
+
+        {% for num in paginator.page_range %}
+
+            {% if page_obj.number == num %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+            </li>
+
+            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">▶️</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.num_pages }}">⏭️</a>
+        </li>
+
+        {% endif %}
+
+    </ul>
+
+</nav>
+
+{% endif %}
 
 </div>
 
 {% endblock %}
-```
+
