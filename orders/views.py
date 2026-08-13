@@ -3,10 +3,9 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
-
 from .models import Order
 from .forms import OrderForm
-
+from rest_framework.permissions import IsAuthenticated
 
 def order_list(request):
     orders_list = Order.objects.all()

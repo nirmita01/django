@@ -13,6 +13,7 @@ class Role(models.Model):
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
+    profile_pic = models.ImageField(upload_to='user_images/', blank=True, null=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, blank=True, null=True)

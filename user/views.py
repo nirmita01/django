@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 
 
+
 def user_list(request):
     user_list = User.objects.all()
     paginator = Paginator(user_list, 5)
