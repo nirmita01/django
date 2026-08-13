@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
+    "drf_yasg",
     
 ]
 PROJECT_APPS = [
